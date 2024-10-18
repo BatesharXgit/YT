@@ -39,7 +39,6 @@ class _StoreHomePageState extends State<StoreHomePage> {
         child: Center(
           child: Column(
             children: [
-              _appBar(context),
               Expanded(
                 child: ListView.builder(
                     controller: widget.controller,
@@ -61,40 +60,6 @@ class _StoreHomePageState extends State<StoreHomePage> {
       ),
     );
   }
-}
-
-Widget _appBar(BuildContext context) {
-  return Padding(
-    padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            Image.asset(
-              'assets/logo.png',
-              height: 34,
-            ),
-            SizedBox(
-              width: 4,
-            ),
-            Text(
-              "STORE",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-              ),
-            )
-          ],
-        ),
-        Icon(
-          Icons.settings,
-          color: Colors.white,
-        ),
-      ],
-    ),
-  );
 }
 
 Widget _listApps({
