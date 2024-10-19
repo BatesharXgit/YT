@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -34,33 +36,71 @@ class _StoreHomePageState extends State<StoreHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff0f0e1c),
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                    controller: widget.controller,
-                    itemCount: appIcons.length,
-                    itemBuilder: (BuildContext context, index) {
-                      return GestureDetector(
-                        onTap: () {},
-                        child: _listApps(
-                            context: context,
-                            imageUrl: appsImages[index],
-                            appIcon: appIcons[index],
-                            appName: appNames[index]),
-                      );
-                    }),
-              )
-            ],
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        // forceMaterialTransparency: true,
+        flexibleSpace: ClipRRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: Container(
+              color: Color(0xff0f0e1c).withOpacity(0.6),
+              child: Padding(
+                padding: EdgeInsets.only(top: 16, left: 16),
+                child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'XD STORE',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22),
+                    )),
+              ),
+            ),
           ),
+        ),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+      ),
+      backgroundColor: const Color(0xff0f0e1c),
+      body: Center(
+        child: Column(
+          children: [
+            // _appBar(context),
+            Expanded(
+              child: ListView.builder(
+                  controller: widget.controller,
+                  itemCount: appIcons.length,
+                  itemBuilder: (BuildContext context, index) {
+                    return GestureDetector(
+                      onTap: () {},
+                      child: _listApps(
+                          context: context,
+                          imageUrl: appsImages[index],
+                          appIcon: appIcons[index],
+                          appName: appNames[index]),
+                    );
+                  }),
+            )
+          ],
         ),
       ),
     );
   }
 }
+
+// Widget _appBar(BuildContext context) {
+// return ClipRRect(
+// child: BackdropFilter(
+// filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+// child: Container(
+// height: 100,
+// width: MediaQuery.of(context).size.width,
+// color: Color(0xff0f0e1c).withOpacity(0.8),
+// ),
+// ),
+// );
+// }
 
 Widget _listApps({
   required BuildContext context,
@@ -74,7 +114,7 @@ Widget _listApps({
       height: 238, // Adjusted height to avoid overflow
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        color: Color(0xff1e2238),
+        color: const Color(0xff1e2238),
         borderRadius: BorderRadius.circular(14),
       ),
       child: Column(

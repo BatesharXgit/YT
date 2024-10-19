@@ -14,9 +14,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Glass Bottom Bar Demo',
-      home: const HomePage(),
+      home: HomePage(),
     );
   }
 }
@@ -53,7 +53,7 @@ class HomePageState extends State<HomePage>
 
     // Set the system UI overlay style.
     SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
+      const SystemUiOverlayStyle(
         systemNavigationBarColor: Color(0xFF0c0c16),
       ),
     );
@@ -67,7 +67,7 @@ class HomePageState extends State<HomePage>
 
   // Define colors for each tab.
   Color homeColor = const Color.fromARGB(255, 175, 202, 0);
-  Color customColor = Color(0xFF7B4294);
+  Color customColor = const Color(0xFF7B4294);
   Color locationColor = const Color.fromARGB(255, 59, 255, 226);
   Color favoritesColor = Colors.red;
   Color settingsColor = Colors.blue;
@@ -163,7 +163,7 @@ class HomePageState extends State<HomePage>
                 borderRadius: BorderRadius.circular(20),
                 borderSide: BorderSide(
                     color: _getIndicatorColor(currentPage), width: 6),
-                insets: EdgeInsets.fromLTRB(20, 0, 14, 6),
+                insets: const EdgeInsets.fromLTRB(20, 0, 14, 6),
               ),
               tabs: [
                 // Icons for each tab with size and color changing based on selection.

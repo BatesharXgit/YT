@@ -62,8 +62,8 @@ class GlassNavigationBar extends StatefulWidget {
     this.hideOnScroll = true,
     this.fit = StackFit.loose,
     this.clip = Clip.hardEdge,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _GlassNavigationBarState createState() => _GlassNavigationBarState();
@@ -238,7 +238,7 @@ class _GlassNavigationBarState extends State<GlassNavigationBar>
                                   onPressed: null,
                                   icon: Icon(
                                     Icons.arrow_upward_rounded,
-                                    color: Color(0xff131321),
+                                    color: const Color(0xff131321),
                                     size: isOnTop == true
                                         ? 0
                                         : widget.iconWidth / 2,
@@ -266,7 +266,7 @@ class _GlassNavigationBarState extends State<GlassNavigationBar>
                 decoration: widget.barDecoration ??
                     BoxDecoration(
                       // color: Theme.of(context).colorScheme.background,
-                      color: Color(0xff0f0e1c).withOpacity(0.8),
+                      color: const Color(0xff0f0e1c).withOpacity(0.8),
                       borderRadius: widget.borderRadius,
                     ),
                 child: ClipRRect(
@@ -304,10 +304,10 @@ class _GlassNavigationBarState extends State<GlassNavigationBar>
 //bottom bar contrller
 class BottomBarScrollControllerProvider extends InheritedWidget {
   final ScrollController scrollController;
-  const BottomBarScrollControllerProvider({
-    required Widget child,
+  const BottomBarScrollControllerProvider({super.key, 
+    required super.child,
     required this.scrollController,
-  }) : super(child: child);
+  });
   @override
   bool updateShouldNotify(BottomBarScrollControllerProvider oldWidget) =>
       scrollController != oldWidget.scrollController;
