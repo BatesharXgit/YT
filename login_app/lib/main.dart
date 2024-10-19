@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:blur/blur.dart';
 import 'package:login_app/components/bubble.dart';
@@ -117,18 +119,30 @@ class _AuthPageState extends State<AuthPage> {
 
                   isSignIn ? _buildSignInForm() : _buildSignUpForm(),
                   SizedBox(height: 20),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isSignIn =
-                            !isSignIn; // Toggle between Sign-In and Sign-Up
-                      });
-                    },
-                    child: Text(
-                      isSignIn
-                          ? "Don't have an account? Sign up"
-                          : "Already have an account? Sign in",
-                      style: GoogleFonts.roboto(color: Colors.white70),
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: isSignIn
+                              ? "Don't have an account? "
+                              : "Already have an account? ",
+                          style: GoogleFonts.roboto(color: Colors.white70),
+                        ),
+                        TextSpan(
+                          text: isSignIn ? "Sign up" : "Sign in",
+                          style: GoogleFonts.roboto(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              setState(() {
+                                isSignIn =
+                                    !isSignIn; // Toggle between Sign-In and Sign-Up
+                              });
+                            },
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -145,45 +159,10 @@ class _AuthPageState extends State<AuthPage> {
     return Column(
       children: [
         // Email Input
-        TextField(
-          controller: emailController,
-          decoration: InputDecoration(
-            labelText: 'E-Mail',
-            labelStyle: GoogleFonts.roboto(color: Colors.white70),
-            filled: true,
-            fillColor: Colors.black.withOpacity(0.3),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(color: Colors.transparent),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(color: Colors.white),
-            ),
-          ),
-          style: TextStyle(color: Colors.white),
-        ),
+        _inputField(controller: emailController, labelText: 'E-Mail'),
         SizedBox(height: 20),
         // Password Input
-        TextField(
-          controller: passwordController,
-          obscureText: true,
-          decoration: InputDecoration(
-            labelText: 'Password',
-            labelStyle: GoogleFonts.roboto(color: Colors.white70),
-            filled: true,
-            fillColor: Colors.black.withOpacity(0.3),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(color: Colors.transparent),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(color: Colors.white),
-            ),
-          ),
-          style: TextStyle(color: Colors.white),
-        ),
+        _inputField(controller: passwordController, labelText: 'Password'),
         SizedBox(height: 20),
         // Sign in Button
         SizedBox(
@@ -219,66 +198,15 @@ class _AuthPageState extends State<AuthPage> {
     return Column(
       children: [
         // Email Input
-        TextField(
-          controller: emailController,
-          decoration: InputDecoration(
-            labelText: 'E-Mail',
-            labelStyle: GoogleFonts.roboto(color: Colors.white70),
-            filled: true,
-            fillColor: Colors.black.withOpacity(0.3),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(color: Colors.transparent),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(color: Colors.white),
-            ),
-          ),
-          style: TextStyle(color: Colors.white),
-        ),
+        _inputField(controller: emailController, labelText: 'E-Mail'),
         SizedBox(height: 20),
         // Password Input
-        TextField(
-          controller: passwordController,
-          obscureText: true,
-          decoration: InputDecoration(
-            labelText: 'Password',
-            labelStyle: GoogleFonts.roboto(color: Colors.white70),
-            filled: true,
-            fillColor: Colors.black.withOpacity(0.3),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(color: Colors.transparent),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(color: Colors.white),
-            ),
-          ),
-          style: TextStyle(color: Colors.white),
-        ),
+        _inputField(controller: passwordController, labelText: 'Password'),
         SizedBox(height: 20),
         // Confirm Password Input
-        TextField(
-          controller: confirmPasswordController,
-          obscureText: true,
-          decoration: InputDecoration(
-            labelText: 'Confirm Password',
-            labelStyle: GoogleFonts.roboto(color: Colors.white70),
-            filled: true,
-            fillColor: Colors.black.withOpacity(0.3),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(color: Colors.transparent),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(color: Colors.white),
-            ),
-          ),
-          style: TextStyle(color: Colors.white),
-        ),
+        _inputField(
+            controller: confirmPasswordController,
+            labelText: 'Confirm Password'),
         SizedBox(height: 20),
         // Sign up Button
         SizedBox(
@@ -311,6 +239,30 @@ class _AuthPageState extends State<AuthPage> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _inputField({
+    required TextEditingController controller,
+    required String labelText,
+  }) {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: labelText, //'E-Mail'
+        labelStyle: GoogleFonts.roboto(color: Colors.white70),
+        filled: true,
+        fillColor: Colors.black.withOpacity(0.3),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide(color: Colors.transparent),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide(color: Colors.white),
+        ),
+      ),
+      style: TextStyle(color: Colors.white),
     );
   }
 }
